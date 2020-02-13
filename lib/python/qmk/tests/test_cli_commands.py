@@ -14,6 +14,11 @@ def test_compile():
     assert check_subcommand('compile', '-kb', 'handwired/onekey/pytest', '-km', 'default').returncode == 0
 
 
+def test_flash():
+    assert check_subcommand('flash', '-b').returncode == 1
+    assert check_subcommand('flash').returncode == 1
+
+
 def test_config():
     result = check_subcommand('config')
     assert result.returncode == 0
@@ -25,7 +30,7 @@ def test_kle2json():
 
 
 def test_doctor():
-    result = check_subcommand('doctor')
+    result = check_subcommand('doctor', '-n')
     assert result.returncode == 0
     assert 'QMK Doctor is checking your environment.' in result.stderr
     assert 'QMK is ready to go' in result.stderr
